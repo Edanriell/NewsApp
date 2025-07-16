@@ -1,4 +1,5 @@
-﻿using News.ViewModels;
+﻿using News.Services;
+using News.ViewModels;
 using News.Views;
 
 namespace News;
@@ -25,8 +26,12 @@ public static class MauiProgram
         this
             MauiAppBuilder mauiAppBuilder)
     {
+        // Services
+        mauiAppBuilder.Services.AddSingleton<INewsService>(serviceProvider => new NewsService());
+
         // ViewModels
         mauiAppBuilder.Services.AddTransient<HeadlinesViewModel>();
+
         // Views
         mauiAppBuilder.Services.AddTransient<AboutView>();
         mauiAppBuilder.Services.AddTransient<ArticleView>();
