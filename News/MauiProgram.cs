@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using News.ViewModels;
+using News.Views;
 
 namespace News;
 
@@ -11,14 +12,25 @@ public static class MauiProgram
             .UseMauiApp<App>()
             .ConfigureFonts(fonts =>
             {
-                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("FontAwesome.otf", "FontAwesome");
+                fonts.AddFont("OpenSans-Regular.ttf",
+                    "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-            });
-
-#if DEBUG
-        builder.Logging.AddDebug();
-#endif
-
+            })
+            .RegisterAppTypes();
         return builder.Build();
+    }
+
+    public static MauiAppBuilder RegisterAppTypes(
+        this
+            MauiAppBuilder mauiAppBuilder)
+    {
+        // ViewModels
+        mauiAppBuilder.Services.AddTransient<HeadlinesViewModel>();
+        // Views
+        mauiAppBuilder.Services.AddTransient<AboutView>();
+        mauiAppBuilder.Services.AddTransient<ArticleView>();
+        mauiAppBuilder.Services.AddTransient<HeadlinesView>();
+        return mauiAppBuilder;
     }
 }
