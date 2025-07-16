@@ -4,37 +4,101 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="News.Views.ArticleItem"
              xmlns:models="clr-namespace:News.Models"
+             xmlns:converters="clr-namespace:News.Converters"
              x:DataType="models:Article">
-    <Grid Margin="0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="10" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="15" />
-            <RowDefinition Height="10" />
-            <RowDefinition Height="1" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="65" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="1" Grid.Column="1" Text="{Binding Title}" Padding="10,0" FontSize="Small"
-               FontAttributes="Bold" />
+    <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1C1C1E}"
+            StrokeShape="RoundRectangle 12"
+            Stroke="{AppThemeBinding Light=#E5E5E7, Dark=#38383A}"
+            StrokeThickness="1"
+            Margin="16,8">
 
-        <Label Grid.Row="2" Grid.Column="1" Text="{Binding PublishedAt, StringFormat='{0:MMMM d, yyyy}'}"
-               Padding="10,0,0,0" FontSize="Micro" />
+        <Border.Shadow>
+            <Shadow Brush="{AppThemeBinding Light=#20000000, Dark=#40000000}"
+                    Offset="0,2"
+                    Radius="8"
+                    Opacity="0.1" />
+        </Border.Shadow>
 
-        <Frame Grid.Row="1" Grid.RowSpan="2" CornerRadius="15" IsClippedToBounds="True" Padding="0" Margin="0,0,0,0"
-               BackgroundColor="#667788" IsVisible="{x:OnPlatform Default=False, iOS=True}">
-            <Image Source="{Binding UrlToImage}" Aspect="AspectFill" HeightRequest="55" HorizontalOptions="Center"
-                   VerticalOptions="Center" />
-        </Frame>
-        <Border Grid.Row="1" Grid.RowSpan="2" StrokeShape="RoundRectangle 15,15,15,15" Padding="0" Margin="0,0,0,0"
-                BackgroundColor="#667788" IsVisible="{x:OnPlatform Default=True, iOS=False}">
-            <Image Source="{Binding UrlToImage}" Aspect="AspectFill" HeightRequest="55" HorizontalOptions="Center"
-                   VerticalOptions="Center" />
-        </Border>
+        <Grid Padding="16" ColumnSpacing="16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        <BoxView Grid.Row="4" Grid.ColumnSpan="2" BackgroundColor="LightGray" />
-    </Grid>
+            <!-- Image -->
+            <Border Grid.Column="0"
+                    StrokeShape="RoundRectangle 12"
+                    BackgroundColor="{AppThemeBinding Light=#F2F2F7, Dark=#2C2C2E}"
+                    Stroke="{AppThemeBinding Light=#E5E5E7, Dark=#38383A}"
+                    StrokeThickness="1"
+                    HeightRequest="100"
+                    WidthRequest="120">
+
+                <Grid>
+                    <!-- Image placeholder -->
+                    <Border BackgroundColor="{AppThemeBinding Light=#F2F2F7, Dark=#2C2C2E}"
+                            StrokeShape="RoundRectangle 12">
+                        <Label Text="📰"
+                               FontSize="32"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               TextColor="{AppThemeBinding Light=#8E8E93, Dark=#8E8E93}" />
+                    </Border>
+
+                    <!-- Image -->
+                    <Image Source="{Binding UrlToImage}"
+                           Aspect="AspectFill"
+                           IsVisible="{Binding UrlToImage, Converter={x:Static converters:StringIsNotNullOrEmptyConverter.Default}}" />
+                </Grid>
+            </Border>
+
+            <!-- Article content -->
+            <StackLayout Grid.Column="1" Spacing="8" VerticalOptions="Fill">
+
+                <!-- Title -->
+                <Label Text="{Binding Title}"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       LineBreakMode="WordWrap"
+                       MaxLines="2"
+                       TextColor="{AppThemeBinding Light=#007AFF, Dark=#007AFF}"
+                       VerticalOptions="Start" />
+
+                <!-- Description -->
+                <Label Text="{Binding Description}"
+                       FontSize="13"
+                       LineBreakMode="WordWrap"
+                       MaxLines="2"
+                       TextColor="{AppThemeBinding Light=#3C3C43, Dark=#AEAEB2}"
+                       VerticalOptions="Start"
+                       IsVisible="{Binding Description, Converter={x:Static converters:StringIsNotNullOrEmptyConverter.Default}}" />
+
+                <!-- Spacer -->
+                <BoxView Color="Transparent" VerticalOptions="FillAndExpand" />
+
+                <!-- Article footer -->
+                <Grid ColumnSpacing="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0"
+                           Text="{Binding PublishedAt, StringFormat='{0:MMM d, yyyy}'}"
+                           FontSize="11"
+                           TextColor="{AppThemeBinding Light=#8E8E93, Dark=#8E8E93}"
+                           VerticalOptions="Center" />
+
+                    <Label Grid.Column="1"
+                           Text="{Binding Source.Name}"
+                           FontSize="11"
+                           FontAttributes="Italic"
+                           TextColor="{AppThemeBinding Light=#007AFF, Dark=#007AFF}"
+                           VerticalOptions="Center"
+                           IsVisible="{Binding Source.Name, Converter={x:Static converters:StringIsNotNullOrEmptyConverter.Default}}" />
+                </Grid>
+            </StackLayout>
+        </Grid>
+    </Border>
 </ContentView>
