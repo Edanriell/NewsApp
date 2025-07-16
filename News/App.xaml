@@ -15,6 +15,7 @@
             <FontImage x:Key="NewsIcon" Glyph="&#xf1ea;" Size="22" FontFamily="FontAwesome" />
             <FontImage x:Key="SettingsIcon" Glyph="&#xf013;" Size="22" FontFamily="FontAwesome" Color="Black" />
             <FontImage x:Key="AboutIcon" Glyph="&#xf05a;" Size="22" FontFamily="FontAwesome" Color="Black" />
+            <FontImage x:Key="RefreshIcon" Glyph="&#xf021;" Size="16" FontFamily="FontAwesome" Color="White" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
