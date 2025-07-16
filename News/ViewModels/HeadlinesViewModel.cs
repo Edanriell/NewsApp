@@ -37,4 +37,4 @@ public partial class HeadlinesViewModel : ViewModel
         var url = HttpUtility.UrlEncode(selectedArticle.Url);
         await Navigation.NavigateTo($"articleview?url={url}");
     }
-}
+} 
