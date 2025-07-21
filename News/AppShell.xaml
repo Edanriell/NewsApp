@@ -4,34 +4,7 @@
     x:Class="News.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:views="clr-namespace:News.Views"
-    Shell.FlyoutBehavior="Flyout">
-
-    <Shell.Resources>
-        <ResourceDictionary />
-    </Shell.Resources>
-
-    <Shell.FlyoutHeader>
-        <Grid BackgroundColor="{AppThemeBinding Light=#007AFF, Dark=#0A84FF}"
-              HeightRequest="120">
-            <StackLayout Spacing="8"
-                         VerticalOptions="Center"
-                         HorizontalOptions="Center">
-                <Label Text="📰"
-                       FontSize="32"
-                       HorizontalOptions="Center" />
-                <Label Text="News App"
-                       FontSize="20"
-                       FontAttributes="Bold"
-                       TextColor="White"
-                       HorizontalOptions="Center" />
-                <Label Text="Stay informed, stay ahead"
-                       FontSize="14"
-                       TextColor="#E6FFFFFF"
-                       HorizontalOptions="Center" />
-            </StackLayout>
-        </Grid>
-    </Shell.FlyoutHeader>
+    xmlns:views="clr-namespace:News.Views">
 
     <FlyoutItem Title="Home" Icon="{StaticResource HomeIcon}">
         <ShellContent Title="Headlines" Route="headlines" Icon="{StaticResource HeadlinesIcon}"
@@ -43,22 +16,20 @@
     </FlyoutItem>
 
     <FlyoutItem Title="Settings" Icon="{StaticResource SettingsIcon}">
-        <ContentPage Title="Settings" />
+        <ShellContent Title="Settings">
+            <ContentPage Title="Settings">
+                <StackLayout Padding="20">
+                    <Label Text="Settings page coming soon..."
+                           FontSize="18"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+                </StackLayout>
+            </ContentPage>
+        </ShellContent>
     </FlyoutItem>
 
-    <ShellContent Title="About" Icon="{StaticResource AboutIcon}">
-        <ContentPage Title="About" />
-    </ShellContent>
-
-    <Shell.FlyoutFooter>
-        <Grid BackgroundColor="{AppThemeBinding Light=#F2F2F7, Dark=#1C1C1E}"
-              HeightRequest="50">
-            <Label Text="© 2024 News App v1.0"
-                   FontSize="12"
-                   TextColor="{AppThemeBinding Light=#8E8E93, Dark=#8E8E93}"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center" />
-        </Grid>
-    </Shell.FlyoutFooter>
+    <FlyoutItem Title="About" Icon="{StaticResource AboutIcon}">
+        <ShellContent Title="About" ContentTemplate="{DataTemplate views:AboutView}" />
+    </FlyoutItem>
 
 </Shell>
