@@ -1,13 +1,119 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage x:Class="News.Views.AboutView"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="News.Views.AboutView"
-             Title="AboutView">
-    <VerticalStackLayout>
-        <Label
-            Text="AboutView!"
-            VerticalOptions="Center"
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="About"
+             BackgroundColor="{AppThemeBinding Light=#F2F2F7, Dark=#000000}">
+
+    <ScrollView>
+        <StackLayout Spacing="20" Padding="20">
+
+            <!-- App Icon and Header -->
+            <StackLayout Spacing="15" HorizontalOptions="Center">
+                <Label Text="📰"
+                       FontSize="60"
+                       HorizontalOptions="Center" />
+                <Label Text="News App"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light=#000000, Dark=#FFFFFF}"
+                       HorizontalOptions="Center" />
+                <Label Text="Version 1.0.0"
+                       FontSize="16"
+                       TextColor="{AppThemeBinding Light=#8E8E93, Dark=#8E8E93}"
+                       HorizontalOptions="Center" />
+            </StackLayout>
+
+            <!-- Description -->
+            <Frame BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C1C1E}"
+                   CornerRadius="12"
+                   HasShadow="True"
+                   Padding="20">
+                <StackLayout Spacing="10">
+                    <Label Text="Description"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light=#000000, Dark=#FFFFFF}" />
+                    <Label
+                        Text="Stay informed with the latest news from around the world. Get breaking news, local updates, and global stories all in one place."
+                        FontSize="16"
+                        LineHeight="1.4"
+                        TextColor="{AppThemeBinding Light=#3C3C43, Dark=#EBEBF5}" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Features -->
+            <Frame BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C1C1E}"
+                   CornerRadius="12"
+                   HasShadow="True"
+                   Padding="20">
+                <StackLayout Spacing="15">
+                    <Label Text="Features"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light=#000000, Dark=#FFFFFF}" />
+
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Label Text="📱" FontSize="20" />
+                        <Label Text="Mobile-first design"
+                               FontSize="16"
+                               VerticalOptions="Center"
+                               TextColor="{AppThemeBinding Light=#3C3C43, Dark=#EBEBF5}" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Label Text="🌍" FontSize="20" />
+                        <Label Text="Global and local news"
+                               FontSize="16"
+                               VerticalOptions="Center"
+                               TextColor="{AppThemeBinding Light=#3C3C43, Dark=#EBEBF5}" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Label Text="⚡" FontSize="20" />
+                        <Label Text="Real-time updates"
+                               FontSize="16"
+                               VerticalOptions="Center"
+                               TextColor="{AppThemeBinding Light=#3C3C43, Dark=#EBEBF5}" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Label Text="🌙" FontSize="20" />
+                        <Label Text="Dark mode support"
+                               FontSize="16"
+                               VerticalOptions="Center"
+                               TextColor="{AppThemeBinding Light=#3C3C43, Dark=#EBEBF5}" />
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <!-- Contact Information -->
+            <Frame BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C1C1E}"
+                   CornerRadius="12"
+                   HasShadow="True"
+                   Padding="20">
+                <StackLayout Spacing="10">
+                    <Label Text="Contact and Support"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light=#000000, Dark=#FFFFFF}" />
+                    <Label Text="Email: support@newsapp.com"
+                           FontSize="16"
+                           TextColor="{AppThemeBinding Light=#007AFF, Dark=#0A84FF}" />
+                    <Label Text="Website: www.newsapp.com"
+                           FontSize="16"
+                           TextColor="{AppThemeBinding Light=#007AFF, Dark=#0A84FF}" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Copyright -->
+            <Label Text="© 2024 News App. All rights reserved."
+                   FontSize="14"
+                   TextColor="{AppThemeBinding Light=#8E8E93, Dark=#8E8E93}"
+                   HorizontalOptions="Center"
+                   Margin="0,20,0,0" />
+
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
