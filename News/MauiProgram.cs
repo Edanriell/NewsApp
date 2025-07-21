@@ -40,6 +40,7 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddTransient<AboutView>();
         mauiAppBuilder.Services.AddTransient<ArticleView>();
         mauiAppBuilder.Services.AddTransient<HeadlinesView>();
+        mauiAppBuilder.Services.AddTransient<SettingsView>();
 
         return mauiAppBuilder;
     }
