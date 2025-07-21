@@ -32,6 +32,7 @@ public static class MauiProgram
         // Services
         mauiAppBuilder.Services.AddSingleton<INewsService>(serviceProvider => new NewsService());
         mauiAppBuilder.Services.AddSingleton<INavigate>(serviceProvider => new Navigator());
+        mauiAppBuilder.Services.AddSingleton<ISettingsService>(serviceProvider => new SettingsService());
 
         // ViewModels
         mauiAppBuilder.Services.AddTransient<HeadlinesViewModel>();
