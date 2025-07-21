@@ -108,7 +108,7 @@
             </Frame>
 
             <!-- Copyright -->
-            <Label Text="© 2024 News App. All rights reserved."
+            <Label Text="© 2025 News App. All rights reserved."
                    FontSize="14"
                    TextColor="{AppThemeBinding Light=#8E8E93, Dark=#8E8E93}"
                    HorizontalOptions="Center"

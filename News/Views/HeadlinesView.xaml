@@ -2,180 +2,89 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:News.Views"
-             xmlns:viewModels="clr-namespace:News.ViewModels"
-             xmlns:models="clr-namespace:News.Models"
-             xmlns:converters="clr-namespace:News.Converters"
-             x:Name="headlinesview"
              x:Class="News.Views.HeadlinesView"
+             xmlns:viewModels="clr-namespace:News.ViewModels"
+             xmlns:views="clr-namespace:News.Views"
              x:DataType="viewModels:HeadlinesViewModel"
-             Title="Headlines"
-             BackgroundColor="{AppThemeBinding Light=#F8F9FA, Dark=#000000}">
+             Title="Headlines">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <Grid RowDefinitions="Auto,*"
+          RowSpacing="0"
+          Margin="0">
 
-        <!-- Header -->
-        <Border Grid.Row="0"
-                BackgroundColor="{AppThemeBinding Light=White, Dark=#1C1C1E}"
-                Padding="20,16,20,20"
-                Margin="0,0,0,8">
+        <!-- Header with Title and Refresh Button -->
+        <Grid Grid.Row="0"
+              ColumnDefinitions="*,Auto"
+              Padding="16,8,16,8"
+              BackgroundColor="{AppThemeBinding Light=White, Dark=#1C1C1E}">
 
-            <Border.Shadow>
-                <Shadow Brush="{AppThemeBinding Light=#10000000, Dark=#40000000}"
-                        Offset="0,2"
-                        Radius="6"
-                        Opacity="0.08" />
-            </Border.Shadow>
+            <Label Grid.Column="0"
+                   Text="{Binding HeaderTitle}"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   VerticalOptions="Center"
+                   TextColor="{AppThemeBinding Light=#000000, Dark=#FFFFFF}" />
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+            <Border Grid.Column="1"
+                    BackgroundColor="{AppThemeBinding Light=#007AFF, Dark=#0A84FF}"
+                    StrokeShape="RoundRectangle 20"
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center">
 
-                <!-- Content -->
-                <StackLayout Grid.Column="0" Spacing="4">
-                    <Label Text="{Binding HeaderTitle}"
-                           FontSize="28"
-                           FontAttributes="Bold"
-                           TextColor="{AppThemeBinding Light=#1C1C1E, Dark=#FFFFFF}" />
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RefreshCommand}" />
+                </Border.GestureRecognizers>
 
-                    <Label Text="{Binding CurrentNews.TotalResults, StringFormat='Stay informed with {0} articles'}"
-                           FontSize="14"
-                           TextColor="{AppThemeBinding Light=#8E8E93, Dark=#8E8E93}"
-                           IsVisible="{Binding CurrentNews, Converter={x:Static converters:StringIsNotNullOrEmptyConverter.Default}}" />
-                </StackLayout>
+                <Image Source="{StaticResource RefreshIcon}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       WidthRequest="19"
+                       HeightRequest="19" />
+            </Border>
+        </Grid>
 
-                <!-- Refresh Button -->
-                <Border Grid.Column="1"
-                        BackgroundColor="{AppThemeBinding Light=#007AFF, Dark=#0A84FF}"
-                        StrokeShape="RoundRectangle 20"
-                        WidthRequest="40"
-                        HeightRequest="40"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center">
-
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding RefreshCommand}" />
-                    </Border.GestureRecognizers>
-
-                    <Image Source="{StaticResource RefreshIcon}"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center"
-                           WidthRequest="19"
-                           HeightRequest="19" />
-                </Border>
-            </Grid>
-        </Border>
-
-        <!-- Content Area -->
+        <!-- News List -->
         <RefreshView Grid.Row="1"
                      IsRefreshing="{Binding IsRefreshing}"
                      Command="{Binding RefreshCommand}"
-                     RefreshColor="{AppThemeBinding Light=#007AFF, Dark=#0A84FF}">
+                     RefreshColor="{AppThemeBinding Light=#007AFF, Dark=#0A84FF}"
+                     BackgroundColor="{AppThemeBinding Light=#F2F2F7, Dark=#000000}">
 
-            <CollectionView ItemsSource="{Binding CurrentNews.Articles}"
-                            BackgroundColor="Transparent"
-                            ItemSizingStrategy="MeasureFirstItem"
-                            VerticalScrollBarVisibility="Never">
+            <CollectionView x:Name="NewsCollectionView"
+                            ItemsSource="{Binding CurrentNews.Articles}"
+                            SelectionMode="Single"
+                            SelectionChanged="OnSelectionChanged"
+                            BackgroundColor="{AppThemeBinding Light=#F2F2F7, Dark=#000000}"
+                            Margin="0">
 
-                <!-- Empty State -->
-                <CollectionView.EmptyView>
-                    <ContentView>
-                        <StackLayout Spacing="16"
-                                     Padding="40"
-                                     HorizontalOptions="Center"
-                                     VerticalOptions="Center">
-
-                            <!-- Loading Animation -->
-                            <Border BackgroundColor="{AppThemeBinding Light=#F2F2F7, Dark=#2C2C2E}"
-                                    StrokeShape="RoundRectangle 30"
-                                    WidthRequest="60"
-                                    HeightRequest="60"
-                                    HorizontalOptions="Center">
-                                <Label Text="📰"
-                                       FontSize="24"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"
-                                       TextColor="{AppThemeBinding Light=#007AFF, Dark=#0A84FF}" />
-                            </Border>
-
-                            <Label Text="Loading latest news..."
-                                   FontSize="18"
-                                   FontAttributes="Bold"
-                                   TextColor="{AppThemeBinding Light=#1C1C1E, Dark=#FFFFFF}"
-                                   HorizontalOptions="Center" />
-
-                            <Label Text="Stay tuned for the most recent updates"
-                                   FontSize="14"
-                                   TextColor="{AppThemeBinding Light=#8E8E93, Dark=#8E8E93}"
-                                   HorizontalOptions="Center"
-                                   HorizontalTextAlignment="Center" />
-                        </StackLayout>
-                    </ContentView>
-                </CollectionView.EmptyView>
-
-                <!-- Item Template -->
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Article">
-                        <ContentView>
-                            <ContentView.GestureRecognizers>
-                                <TapGestureRecognizer
-                                    Command="{Binding BindingContext.ItemSelectedCommand, Source={x:Reference headlinesview}}"
-                                    CommandParameter="{Binding .}" />
-                            </ContentView.GestureRecognizers>
-
-                            <!-- Subtle hover effect -->
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup x:Name="CommonStates">
-                                    <VisualState x:Name="Normal" />
-                                    <VisualState x:Name="Selected">
-                                        <VisualState.Setters>
-                                            <Setter Property="Opacity" Value="0.8" />
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-
-                            <views:ArticleItem />
-                        </ContentView>
+                    <DataTemplate>
+                        <views:ArticleItem />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
 
-                <!-- Header/Footer spacing -->
-                <CollectionView.Header>
-                    <BoxView HeightRequest="8" Color="Transparent" />
-                </CollectionView.Header>
+                <!-- Loading indicator -->
+                <CollectionView.EmptyView>
+                    <Grid IsVisible="{Binding IsInitialLoading}"
+                          BackgroundColor="{AppThemeBinding Light=#F2F2F7, Dark=#000000}">
+                        <StackLayout HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     Spacing="16">
+                            <ActivityIndicator IsRunning="{Binding IsInitialLoading}"
+                                               Color="{AppThemeBinding Light=#007AFF, Dark=#0A84FF}"
+                                               WidthRequest="40"
+                                               HeightRequest="40" />
+                            <Label Text="Loading news..."
+                                   FontSize="16"
+                                   HorizontalOptions="Center"
+                                   TextColor="{AppThemeBinding Light=#8E8E93, Dark=#8E8E93}" />
+                        </StackLayout>
+                    </Grid>
+                </CollectionView.EmptyView>
 
-                <CollectionView.Footer>
-                    <BoxView HeightRequest="20" Color="Transparent" />
-                </CollectionView.Footer>
             </CollectionView>
         </RefreshView>
-
-        <!-- Loading Overlay for initial load -->
-        <Border Grid.Row="0" Grid.RowSpan="2"
-                BackgroundColor="{AppThemeBinding Light=#F0FFFFFF, Dark=#F0000000}"
-                IsVisible="{Binding IsInitialLoading}">
-
-            <StackLayout Spacing="16"
-                         HorizontalOptions="Center"
-                         VerticalOptions="Center">
-
-                <ActivityIndicator IsRunning="True"
-                                   Color="{AppThemeBinding Light=#007AFF, Dark=#0A84FF}"
-                                   WidthRequest="40"
-                                   HeightRequest="40" />
-
-                <Label Text="Loading news..."
-                       FontSize="16"
-                       TextColor="{AppThemeBinding Light=#1C1C1E, Dark=#FFFFFF}"
-                       HorizontalOptions="Center" />
-            </StackLayout>
-        </Border>
     </Grid>
 </ContentPage>
