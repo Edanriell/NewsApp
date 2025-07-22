@@ -67,8 +67,8 @@
         <ShellContent Title="Headlines" Route="headlines" Icon="{StaticResource HeadlinesIcon}"
                       ContentTemplate="{DataTemplate views:HeadlinesView}" />
         <Tab Title="News" Route="news" Icon="{StaticResource NewsIcon}">
-            <ShellContent Title="Local" Route="local" ContentTemplate="{DataTemplate views:HeadlinesView}" />
-            <ShellContent Title="Global" Route="global" ContentTemplate="{DataTemplate views:HeadlinesView}" />
+            <ShellContent Title="Local" Route="local" ContentTemplate="{DataTemplate views:LocalNewsView}" />
+            <ShellContent Title="Global" Route="global" ContentTemplate="{DataTemplate views:GlobalNewsView}" />
         </Tab>
     </FlyoutItem>
 
