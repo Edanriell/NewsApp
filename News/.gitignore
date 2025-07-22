@@ -48,7 +48,7 @@ obj/
 .LSOverride
 ._*
 
-## Windows specific
+## Windows specific files
 Thumbs.db
 ehthumbs.db
 Desktop.ini
