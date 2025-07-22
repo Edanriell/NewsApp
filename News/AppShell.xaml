@@ -63,7 +63,12 @@
         </Grid>
     </Shell.FlyoutHeader>
 
-    <FlyoutItem Title="Home" Icon="{StaticResource HomeIcon}">
+    <FlyoutItem Title="Home"
+                Icon="{StaticResource HomeIcon}"
+                Shell.TabBarBackgroundColor="{AppThemeBinding Light=White, Dark=#1C1C1E}"
+                Shell.TabBarForegroundColor="{AppThemeBinding Light=#0066FF, Dark=#3399FF}"
+                Shell.TabBarUnselectedColor="{AppThemeBinding Light=#8E8E93, Dark=#636366}"
+                Shell.TabBarTitleColor="{AppThemeBinding Light=#0066FF, Dark=#3399FF}">
         <ShellContent Title="Headlines" Route="headlines" Icon="{StaticResource HeadlinesIcon}"
                       ContentTemplate="{DataTemplate views:HeadlinesView}" />
         <Tab Title="News" Route="news" Icon="{StaticResource NewsIcon}">
@@ -83,7 +88,7 @@
     <Shell.FlyoutFooter>
         <Grid BackgroundColor="{AppThemeBinding Light=#F2F2F7, Dark=#1C1C1E}"
               HeightRequest="50">
-            <Label Text="© 2024 News App v1.0"
+            <Label Text="© 2025 News App v1.0"
                    FontSize="12"
                    TextColor="{AppThemeBinding Light=#8E8E93, Dark=#8E8E93}"
                    HorizontalOptions="Center"
