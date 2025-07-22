@@ -41,8 +41,12 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddTransient<AboutView>();
         mauiAppBuilder.Services.AddTransient<ArticleView>();
         mauiAppBuilder.Services.AddTransient<HeadlinesView>();
+        mauiAppBuilder.Services.AddTransient<LocalNewsView>();
+        mauiAppBuilder.Services.AddTransient<GlobalNewsView>();
         mauiAppBuilder.Services.AddTransient<SettingsView>();
 
         return mauiAppBuilder;
     }
 }
+
+// Refresh button not working

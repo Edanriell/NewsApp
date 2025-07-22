@@ -4,11 +4,11 @@ using News.ViewModels;
 
 namespace News.Views;
 
-public partial class HeadlinesView : ContentPage
+public partial class LocalNewsView : ContentPage
 {
     private readonly HeadlinesViewModel viewModel;
 
-    public HeadlinesView(HeadlinesViewModel viewModel)
+    public LocalNewsView(HeadlinesViewModel viewModel)
     {
         InitializeComponent();
         this.viewModel = viewModel;
@@ -18,7 +18,7 @@ public partial class HeadlinesView : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        await viewModel.Initialize(NewsScope.Headlines);
+        await viewModel.Initialize(NewsScope.Local);
     }
 
     private async void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
